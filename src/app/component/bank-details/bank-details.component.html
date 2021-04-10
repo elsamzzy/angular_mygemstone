@@ -1,0 +1,104 @@
+<div id="main-wrapper">
+    <app-navbar></app-navbar>
+    <!-- Header end -->
+    <main class="py-4">
+        <!-- Content
+    ============================================ -->
+        <div id="content">
+            <div class="container">
+    <div id="login-signup-page" class="bg-light shadow-md rounded mx-auto p-4">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item"> <a id="signup-page-tab" class="nav-link active text-4" data-toggle="tab"role="tab" aria-controls="signup" aria-selected="true">Sign Up</a> </li>
+        </ul>
+        <div class="tab-content pt-4">
+
+            <div class="tab-pane fade show active" id="signupPage" role="tabpanel" aria-labelledby="signup-page-tab"></div>
+            <form [formGroup]="bankForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <input id="bank" type="text" class="form-control" placeholder="Bank Name" formControlName="bank" name="bank"  required autofocus>
+                    <div *ngIf="bank.bank.touched && bank.bank.invalid">
+                        <div *ngIf="bank.bank.hasError('required')">
+                            <span class="invalid-feedback text-danger" role="alert">
+                                <strong>Bank Name is Required</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input id="name" type="text" class="form-control" placeholder="Account Name" name="name" formControlName="name" required autofocus>
+                    <div *ngIf="bank.name.touched && bank.name.invalid">
+                        <div *ngIf="bank.name.hasError('required')">
+                            <span class="invalid-feedback text-danger" role="alert">
+                                <strong>Your accout Name is Requried</strong>
+                            </span>
+                        </div>
+                        <div *ngIf="bank.name.hasError('minLength')">
+                            <span class="invalid-feedback text-danger" role="alert">
+                                <strong>Input a valid account name</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input id="number" type="number" class="form-control" placeholder="Account Number" formControlName="number" name="number" required autofocus>
+                    <div *ngIf="bank.number.touched && bank.number.invalid">
+                        <div *ngIf="bank.number.hasError('required')">
+                            <span class="invalid-feedback" role="alert">
+                                <strong>Your Account Number is Requried</strong>
+                            </span>
+                        </div>
+                        <div *ngIf="bank.number.hasError('minLength') || bank.number.hasError('maxLength')">
+                            <span class="invalid-feedback" role="alert">
+                                <strong>Input a valid account number</strong>
+                            </span>
+                        </div>
+                    </div>
+                    <div *ngIf="errorNumber !== ''" >
+                         <span class="text-center text-danger" role="alert">
+                            <strong>{{ errorNumber }}</strong>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group row mb-0">
+                    <div class="col-md-6 offset-md-4">
+                        <div *ngIf="bank.bank.invalid || bank.name.invalid || bank.number.invalid ;then disbt else enbtn"></div>
+                        <ng-template #disbt>
+                            <button disabled  class="btn btn-primary">
+                                Continue
+                            </button>
+                        </ng-template>
+                        <ng-template #enbtn>
+                            <button type="submit"  class="btn btn-primary">
+                                Continue
+                            </button>
+                        </ng-template>
+                    </div>
+                    <div *ngIf="error !== ''">
+                        <span class="text-center text-danger" role="alert">
+                            <strong>{{ error }}</strong>
+                        </span>
+                    </div>
+                </div>
+                <!--
+                <div class="form-group row mb-0">
+                    <div class="col-md-6 offset-md-4">
+                        <button type="submit" class="btn btn-primary">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+                -->
+            </form>
+
+            <p>Disclaimer</p>
+            <p>Networking involves risk. Only risk capital you are prepared to loose. However with the knowledge you will acquire is worth more than your sign up capital.</p>
+        </div>
+
+    </div>
+</div>
+        </div>
+    </main>
+</div>
+<app-footer></app-footer>

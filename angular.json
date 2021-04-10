@@ -28,9 +28,18 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.css",
+              "./node_modules/font-awesome/css/font-awesome.css"
+
             ],
-            "scripts": []
+            "scripts": [
+              "./src/imports/js/jquery.min.js",
+              "./src/imports/js/bootstrap.bundle.min.js",
+              "./src/imports/js/owl.carousel.min.js",
+              "./src/imports/js/theme.js",
+              "./src/imports/js/toastr.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -91,6 +100,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []

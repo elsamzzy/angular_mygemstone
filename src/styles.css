@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import './imports/css/app.css';
+@import './imports/css/bootstrap.min.css';
+/* @import './imports/css/fontawesome-all.min.css'; */
+/* @import './imports/css/owl.carousel.min.css'; */
+@import './imports/css/owl.theme.default.min.css';
+@import './imports/css/stylesheet.css';
+@import './imports/css/toastr.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.align-text-center { text-align: center; }

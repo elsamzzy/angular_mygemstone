@@ -1,0 +1,170 @@
+<div id="main-wrapper">
+    <app-navbar></app-navbar>
+    <!-- Header end -->
+    <main class="py-4">
+        <!-- Content
+    ============================================ -->
+<div id="content">
+    <div class="container">
+        <div id="login-signup-page" class="bg-light shadow-md rounded mx-auto p-4">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item"> <a id="signup-page-tab" class="nav-link active text-4" data-toggle="tab"role="tab" aria-controls="signup" aria-selected="true">Register</a> </li>
+                <li class="nav-item"> <a id="login-page-tab" class="nav-link  text-4"  routerLink="/login" role="tab" aria-controls="login" >Login</a> </li>
+            </ul>
+            <div class="tab-content pt-4">
+                <div class="tab-pane fade show active" id="signupPage" role="tabpanel" aria-labelledby="signup-page-tab">
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="refid" formControlName="refid"  placeholder="Referal ID" required autofocus>
+                                <div *ngIf="f.refid.touched && f.refid.invalid">
+                                    <div *ngIf="f.refid.hasError('required')">
+                                        <span class="text-center align-text-center text-danger" role="alert">
+                                            <strong>Referral Id is required</strong>
+                                        </span>
+                                    </div>
+                                    <div *ngIf="f.refid.hasError('minlength')">
+                                        <span class="text-center align-text-center text-danger" role="alert">
+                                            <strong>Referral Id must be at least 3 characters long</strong>
+                                        </span>
+                                    </div>
+                                    <div *ngIf="f.refid.hasError('maxlength')">
+                                        <span class="text-center align-text-center text-danger" role="alert">
+                                            <strong>Referral Id is must be at most 8 characters long</strong>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div *ngIf="errorRefid !== ''">
+                                    <span class="text-center text-danger" role="alert">
+                                        <strong>{{ errorRefid }}</strong>
+                                    </span>
+                                </div>
+                            <small class="text-info"> Enter the username of your upline. Leave Admin as your upliner if you have no upliner.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <input id="name" type="text" class="form-control" minlength="4" placeholder="Full Name" formControlName="name" required autofocus>
+                            <div *ngIf="f.name.touched && f.name.invalid">
+                                <div *ngIf="f.name.hasError('required')" >
+                                    <span class="text-center text-danger" role="alert">
+                                        <strong>Name is required.</strong>
+                                    </span>
+                                </div>
+                                <div *ngIf="f.name.hasError('minlength')" >
+                                    <span class="text-center text-danger" role="alert">
+                                        <strong>Name must be at least 4 characters long.</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div *ngIf="errorName !== ''">
+                                    <span class="text-center text-danger" role="alert">
+                                        <strong>{{ errorRefid }}</strong>
+                                    </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input id="username" type="text" class="form-control" placeholder="User Name" formControlName="username" required autofocus>
+                            <div *ngIf="f.username.touched && f.username.invalid">
+                                <div *ngIf="f.username.hasError('required')" >
+                                     <span class="text-center text-danger" role="alert">
+                                        <strong>Username is required</strong>
+                                    </span>
+                                </div>
+                                <div *ngIf="f.username.hasError('minlength')" >
+                                     <span class="text-center text-danger" role="alert">
+                                        <strong>Username must be at least 3 characters long</strong>
+                                    </span>
+                                </div>
+                                <div *ngIf="f.username.hasError('maxlength')" >
+                                     <span class="text-center text-danger" role="alert">
+                                        <strong>Username must be at most 8 characters long</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div *ngIf="errorUsername !== ''" >
+                                 <span class="text-center text-danger" role="alert">
+                                    <strong>{{ errorUsername }}</strong>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input id="email" type="email" class="form-control" placeholder="E-Mail Address" formControlName="email" required>
+                            <div *ngIf="f.email.touched && f.email.invalid">
+                                <div *ngIf="f.email.hasError('required')" >
+                                     <span class="text-center text-danger" role="alert">
+                                        <strong>email is required</strong>
+                                    </span>
+                                </div>
+                                <div *ngIf="f.email.hasError('email')" >
+                                     <span class="text-center text-danger" role="alert">
+                                        <strong>Input a valid email</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div *ngIf="errorEmail !== ''" >
+                                 <span class="text-center text-danger" role="alert">
+                                    <strong>{{ errorEmail }}</strong>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" formControlName="mob" class="form-control" id="mob" required placeholder="Mobile Number">
+                            <div *ngIf="f.mob.touched && f.mob.invalid">
+                                <div *ngIf="f.mob.hasError('required')" >
+                                     <span class="text-center invalid-feedback" role="alert">
+                                        <strong>phone is required</strong>
+                                    </span>
+                                </div>
+                                <div *ngIf="f.mob.hasError('minlength')" >
+                                     <span class="text-center invalid-feedback" role="alert">
+                                        <strong>phone must be at least 10 characters long</strong>
+                                    </span>
+                                </div>
+                                <div *ngIf="f.mob.hasError('maxlength')" >
+                                     <span class="text-center invalid-feedback" role="alert">
+                                        <strong>phone must be at most 11 characters long</strong>
+                                    </span>
+                                </div>
+                            </div>
+                            <div *ngIf="errorMob !== ''" >
+                                 <span class="text-center text-danger" role="alert">
+                                    <strong>{{ errorUsername }}</strong>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <div *ngIf="f.refid.invalid || f.username.invalid || f.email.invalid || f.name.invalid || f.mob.invalid ;then disbt else enbtn"></div>
+                                <ng-template #disbt>
+                                    <button disabled  class="btn btn-primary">
+                                        Continue
+                                    </button>
+                                </ng-template>
+                                <ng-template #enbtn>
+                                    <button type="submit"  class="btn btn-primary">
+                                        Continue
+                                    </button>
+                                </ng-template>
+                            </div>
+                            <div *ngIf="error !== ''">
+                                <span class="text-center text-danger" role="alert">
+                                    <strong>{{ error }}</strong>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+
+                    <p>Disclaimer</p>
+                    <p>Networking involves risk. Only risk capital you are prepared to loose. However with the knowledge you will acquire is worth more than your sign up capital.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </main>
+</div>
+<app-footer></app-footer>
+<router-outlet></router-outlet>

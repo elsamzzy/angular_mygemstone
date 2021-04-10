@@ -1,0 +1,58 @@
+<!-- Header============================================= -->
+<header id="header" class="bg-primary header-text-light">
+    <div class="container">
+        <div class="header-row">
+            <div class="header-column justify-content-start">
+
+                <!-- Logo
+                ============================================= -->
+                <div class="logo"> <a routerLink="/" title="Gemstone "><img src="../../assets/img/logolight.png" alt="Gemstone" width="127" height="29" /></a> </div>
+                <!-- Logo end -->
+
+            </div>
+            <div class="header-column justify-content-end">
+
+                <!-- Primary Navigation
+                ============================================= -->
+                <nav class="primary-menu navbar navbar-expand-lg">
+                    <div id="header-nav" class="collapse navbar-collapse">
+                        <ul class="navbar-nav">
+                            <li class="active"> <a class="dropdown-toggle " routerLink="" style="color:#0071cc;">Home</a></li>
+                            <li> <a  href="#" style="color:#0071cc;">Buy Coupon</a></li>
+                            <li> <a  href="#" style="color:#0071cc;">About Us</a></li>
+                            <li> <a   href="#" style="color:#0071cc;">Contact Us</a></li>
+                            <li> <a  href="#" style="color:#0071cc;">Support</a></li>
+                            <li> <a  href="#" style="color:#0071cc;">Privacy Policy</a></li>
+                            <li class="dropdown login-signup ml-lg-2"><a class="dropdown-toggle pl-lg-4 pr-0"  [routerLink]="['/login']" title="Login/Register" style="color:#0071cc;">Login/Register <span class="d-none d-lg-inline-block"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" [routerLink]="['/login']" style="color:#0071cc;">Login</a></li>
+                                    <li><a class="dropdown-item" [routerLink]="['/register']" style="color:#0071cc;">Sign Up</a></li>
+
+                                </ul>
+                            </li>
+                            <!---
+                            @auth
+                            <li class="dropdown login-signup ml-lg-2"><a class="dropdown-toggle pl-lg-4 pr-0"  href="{{ route('dashboard') }}" title="{{ auth()->user()->name }}" style="color:#0071cc;">{{ auth()->user()->name }} <span class="d-none d-lg-inline-block"><i class="fas fa-user"></i></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('settings') }}" style="color:#0071cc;">{{ __('Settings') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}" style="color:#0071cc;" onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}</a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                            @endauth
+                            -->
+                        </ul>
+                    </div>
+                </nav>          <!-- Primary Navigation end -->
+            </div>
+            <!-- Collapse Button
+            ============================================= -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header-nav"> <span></span> <span></span> <span></span> </button>
+        </div>
+    </div>
+</header>
