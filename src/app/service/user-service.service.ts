@@ -70,10 +70,10 @@ export class UserServiceService {
   }
 
   /** GET hero by id. Will 404 if id not found */
-  verifyCoupon(coupon: number, id: any): Observable<any>{
+  verifyCoupon(coupon: number, id: any): Observable<number>{
     const url = `${this.Url}/coupon/${id}/${coupon}`;
-    return this.http.get<any>(url).pipe(
-        catchError(this.handleError<any>(`verifyUsername id=${coupon}`))
+    return this.http.get<number>(url).pipe(
+        catchError(this.handleError<number>(`verifyUsername id=${coupon}`))
     );
   }
 
@@ -116,6 +116,13 @@ export class UserServiceService {
   registerUser(user: User): Observable<any> {
     return this.http.post<any>(this.Url, user, this.httpOptions).pipe(
         catchError(this.handleError<any>('registerUser'))
+    );
+  }
+
+  password(pass: object, user: any): Observable<any> {
+    const url = `${this.Url}/password/${user}`;
+    return this.http.post<any>(url, pass, this.httpOptions).pipe(
+        catchError(this.handleError<any>('password'))
     );
   }
 

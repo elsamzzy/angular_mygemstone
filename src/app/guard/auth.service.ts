@@ -15,10 +15,10 @@ export class AuthService implements CanActivate{
 
   canAccess(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): true|UrlTree{
     const url: string = state.url;
-    if (sessionStorage.getItem('user')) {
+    if (sessionStorage.getItem('bank')) {
       return true;
     }
-    return this.router.parseUrl('/register');
+    return this.router.parseUrl('/register/password');
   }
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): true|UrlTree {

@@ -24,6 +24,8 @@ import { CouponComponent } from './component/coupon/coupon.component';
 import { RegpathComponent } from './component/regpath/regpath.component';
 import { RegChilPathComponent } from './component/reg-chil-path/reg-chil-path.component';
 import { SuccessComponent } from './component/success/success.component';
+import { PasswordComponent } from './component/password/password.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { SuccessComponent } from './component/success/success.component';
     RegpathComponent,
     RegChilPathComponent,
     SuccessComponent,
+    PasswordComponent,
+    DashboardComponent,
   ],
     imports: [
         BrowserModule,

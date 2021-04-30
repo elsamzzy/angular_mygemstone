@@ -13,6 +13,10 @@ import {CanDeactivateGuard} from './guard/can-deactivate.guard';
 import {CanCouponGuard} from './guard/can-coupon.guard';
 import {SuccessComponent} from './component/success/success.component';
 import {SuccessGuardGuard} from './guard/success-guard.guard';
+import {PasswordComponent} from './component/password/password.component';
+import {PasswordGuard} from './guard/password.guard';
+import {DashboardComponent} from './component/dashboard/dashboard.component';
+import {LoggedInguardGuard} from './guard/logged-inguard.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +31,12 @@ const routes: Routes = [
       {
         path: '',
         children: [
+          {
+            path: 'password',
+            canActivate: [PasswordGuard],
+            canDeactivate: [ CanDeactivateGuard ],
+            component: PasswordComponent
+          },
           { path: 'bank',
             component: BankDetailsComponent,
             canActivate: [ AuthService ],
@@ -48,7 +58,18 @@ const routes: Routes = [
       },
     ]
   },
-  { path: 'about', component: AboutComponent }
+    {
+        path: '',
+        canActivateChild: [ LoggedInguardGuard ],
+        children: [
+            {
+                path: 'dashboard',
+                component: DashboardComponent
+            }
+        ]
+    },
+  { path: 'about', component: AboutComponent },
+  { path: '*', component: AboutComponent }
 ];
 
 @NgModule({

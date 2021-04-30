@@ -45,9 +45,8 @@ export class CouponComponent implements OnInit {
     if (coup === '') {
       return this.error = 'Please input a valid coupon';
     }
-    return this.userservice.verifyCoupon(coupp, this.id)
+    return this.userservice.verifyCoupon(this.couponForm.value.coupon, this.id)
         .subscribe(response => {
-          console.log(response);
           if (response === 0){
             return this.error = 'There was an error authenticating your credentials 2';
           } else if (response === 1) {
@@ -58,11 +57,10 @@ export class CouponComponent implements OnInit {
                   if (res === 'fail') {
                     return this.error = 'There was a major error authenticating your credentials';
                   }
-                  return console.log(res);
 
-                  // sessionStorage.setItem('suc', 'yes');
-                  // sessionStorage.removeItem('bdet');
-                  // return this.router.navigate(['/register/success']);
+                  sessionStorage.setItem('suc', 'yes');
+                  sessionStorage.removeItem('bdet');
+                  return this.router.navigate(['/register/success']);
                 });
           } else {
             return this.error = 'There was an error processing your coupon';

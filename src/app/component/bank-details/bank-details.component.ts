@@ -18,7 +18,7 @@ export class BankDetailsComponent implements OnInit {
   errorName = '';
   errorNumber = '';
   error = '';
-  user: any = sessionStorage.getItem('user');
+  user: any = sessionStorage.getItem('bank');
 
   bankForm = this.formBuilder.group({
     bank: '',
@@ -70,7 +70,7 @@ export class BankDetailsComponent implements OnInit {
             } else {
               const save = det.toString();
               sessionStorage.setItem('bdet', save);
-              sessionStorage.removeItem('user');
+              sessionStorage.removeItem('bank');
               return this.router.navigate(['/register/coupon']);
             }
       });
