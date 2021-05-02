@@ -1,0 +1,253 @@
+<div id="main-wrapper">
+    <app-navbar></app-navbar>
+    <!-- Header end -->
+    <main class="py-4">
+        <!-- Content
+    ============================================= -->
+        <div *ngIf="bankSuccess != ''">
+            <span class="text-center text-success" role="alert">
+                <strong>{{ bankSuccess }}</strong><br>
+            </span>
+        </div>
+        <div *ngIf="passwordSuccess != ''">
+            <span class="text-center text-success" role="alert">
+                <strong>{{ passwordSuccess }}</strong><br>
+            </span>
+        </div>
+    <div id="contentrew" style="background-image:url('../../../assets/img/bg/image6.jpg');">
+        <div class="container-fluid  dashboard-content">
+            <div class="row">
+                <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-header">
+                        <h2 class="pageheader-title">Settings</h2>
+                        <div class="page-breadcrumb">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a routerLink="/dashboard" class="breadcrumb-link">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Settings</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-5">
+                    <div class="simple-card">
+                        <ul class="nav nav-tabs" id="myTab5" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active border-left-0" id="home-tab-simple" data-toggle="tab" href="#home-simple" role="tab" aria-controls="home" aria-selected="true">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab-simple" data-toggle="tab" href="#profile-simple" role="tab" aria-controls="profile" aria-selected="false">Change Bank Details</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab-simple" data-toggle="tab" href="#contact-simple" role="tab" aria-controls="contact" aria-selected="false">Change Password</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent5">
+                            <ng-container *ngIf="user">
+                                <div class="tab-pane fade show active" id="home-simple" role="tabpanel" aria-labelledby="home-tab-simple">
+                                    <div class="lead">Full Name: &nbsp;&nbsp;
+                                        {{ user['name'] }}
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div class="lead">Username:   &nbsp;&nbsp;
+                                        {{ user['username'] }}
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div class="lead">Phone Number: 0 {{user['phone'] }}</div>
+                                    &nbsp;&nbsp;
+                                    <div class="lead">Email Address: &nbsp;&nbsp;
+                                        {{ user['email'] }}
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <ng-template *ngIf="plan">
+                                        <div class="lead">Your Plan: &nbsp;&nbsp;
+                                            {{ plan }} Plan
+                                        </div>
+                                    </ng-template>
+                                    &nbsp;&nbsp;
+                                    <div class="lead">Referrals:   &nbsp;&nbsp;
+                                        {{ getReferralDetails() }}/2
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
+                                    <div class="lead">Bank Name:  &nbsp;&nbsp;
+                                        {{ user['bank'] }}
+                                    </div>
+                                    <div class="lead">Bank Account Name:  &nbsp;&nbsp;
+                                        {{ user['account_name'] }}
+                                    </div>
+                                    <div class="lead">Bank Account Number:  &nbsp;
+                                        {{ user['account_number'] }}
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div class="text-center">
+                                        <div class="lead"> <h4 styles="padding_left:40px">Change Bank Details</h4>&nbsp;&nbsp;</div>
+                                    </div>
+                                    <section>
+                                        <form [formGroup]="BankForm" method="POST" (ngSubmit)="changeBank()">
+                                            <div class="text-center">
+                                                <div class="lead col-md-8">Bank Name:
+                                                    <input type="text" formControlName="bank_name" class="form-control" name="bank_name"  value ="{{ user['bank'] }}" placeholder="Bank Name" required autofocus>
+                                                    <div *ngIf="bank.bank_name.touched && bank.bank_name.invalid">
+                                                        <div *ngIf="bank.bank_name.hasError('required')">
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>Input your bank name</strong>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="bankNameError != ''">
+                                                        <span class="text-center text-danger" role="alert">
+                                                            {{ bankNameError }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            &nbsp;&nbsp;
+                                            <div class="text-center">
+                                                <div class="lead col-md-8">Bank Account Name:
+                                                    <input type="text" class="form-control" formControlName="bank_account_name" name="bank_account_name"  value ="{{ user['account_name'] }}" placeholder="Bank Account Name" required autofocus>
+                                                    <div *ngIf="bank.bank_account_name.touched && bank.bank_account_name.invalid">
+                                                        <div *ngIf="bank.bank_account_name.hasError('required')">
+                                                            <span class="text-dager" role="alert">
+                                                                <strong>Input your bank account name</strong>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="bankAccountNameError != ''">
+                                                        <span class="text-center text-danger" role="alert">
+                                                            {{ bankAccountNameError }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            &nbsp;&nbsp;
+                                            <div class="text-center">
+                                                <div class="lead col-md-8">Bank Account Number:
+                                                    <input type="number" class="form-control" formControlName="bank_account_number"  value ="{{ user['account_number'] }}" placeholder="Bank Account Number" required autofocus>
+                                                    <div *ngIf="bank.bank_account_number.touched && bank.bank_account_number.invalid">
+                                                        <div *ngIf="bank.bank_account_number.hasError('required')">
+                                                            <span class="text-danger" role="alert">
+                                                                <strong>Input your bank account number</strong>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="bankAccountNumberError != ''">
+                                                        <span class="text-center text-danger" role="alert">
+                                                            {{ bankAccountNumberError }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            &nbsp;&nbsp;
+                                            <div class="text-center">
+                                                <div class="lead col-md-8">Enter Password:
+                                                    <input type="password" class="form-control" formControlName="bank_password" name="bank_password" placeholder="Your Password" required autofocus>
+                                                    <div *ngIf="bank.bank_password.touched && bank.bank_password.invalid">
+                                                        <div *ngIf="bank.bank_password.hasError('required')">
+                                                            <span class="text-danger" role="alert">
+                                                                <strong>Input your Password</strong>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="bankPasswordError != ''">
+                                                        <span class="text-center text-danger" role="alert">
+                                                            {{ bankPasswordError }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div *ngIf="bank.bank_name.invalid || bank.bank_account_name.invalid || bank.bank_account_number.invalid || bank.bank_password.invalid ;then disbt else enbtn"></div>
+                                            <ng-template #disbt>
+                                                <button disabled  class="btn btn-primary">
+                                                    Submit
+                                                </button>
+                                            </ng-template>
+                                            <ng-template #enbtn>
+                                                <button type="submit"  class="btn btn-primary">
+                                                    Submit
+                                                </button>
+                                            </ng-template>
+                                            &nbsp;&nbsp;
+                                            <div *ngIf="bankError !== ''">
+                                                <span class="text-danger" role="alert">
+                                                    {{ bankError }}
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </section>
+                                </div>
+                            </ng-container>
+
+                            <div class="tab-pane fade" id="contact-simple" role="tabpanel" aria-labelledby="contact-tab-simple">
+                                <form method="POST" [formGroup]="PasswordForm" (ngSubmit)="changePassword()">
+                                    @method('put')
+                                    @csrf
+                                    <div class="text-center">
+                                        <div class="lead col-md-8">Your Current Password:
+                                            <input type="password" class="form-control" formControlName="old_password" name="old_password" placeholder="Your Current Password" required autofocus>
+                                        </div>
+                                        <div *ngIf="password.old_password.touched && password.old_password.invalid">
+                                            <div *ngIf="password.old_password.hasError('required')">
+                                                <span class="text-danger" role="alert">
+                                                    <strong>Input your old password</strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="oldPasswordError != ''">
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ oldPasswordError }}</strong>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div class="text-center">
+                                        <div class="lead col-md-8">Your New Password:
+                                            <input type="password" class="form-control" formControlName="password" name="password" placeholder="New Password" required autofocus>
+                                        </div>
+                                        <div *ngIf="password.password.touched && password.password.invalid">
+                                            <div *ngIf="password.password.hasError('required')">
+                                                <span class="text-danger" role="alert">
+                                                    <strong>Input your new password</strong>
+                                                </span>
+                                            </div>
+                                            <div *ngIf="password.password.hasError('minLength')">
+                                                <span class="text-danger" role="alert">
+                                                    <strong>Input your new password</strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="newPasswordError != ''">
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ newPasswordError }}</strong>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div class="text-center">
+                                        <div class="lead col-md-8">Confirm Password:
+                                            <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required autofocus>
+                                        </div>
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div class="text-center"><button type="submit" class="btn btn-secondary">Change Password</button></div>
+                                    <div *ngIf="passwordError != ''">
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ passwordError }}</strong>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+</div>
+<app-footer></app-footer>

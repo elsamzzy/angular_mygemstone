@@ -17,6 +17,7 @@ import {PasswordComponent} from './component/password/password.component';
 import {PasswordGuard} from './guard/password.guard';
 import {DashboardComponent} from './component/dashboard/dashboard.component';
 import {LoggedInguardGuard} from './guard/logged-inguard.guard';
+import {SettingsComponent} from './component/settings/settings.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -65,6 +66,10 @@ const routes: Routes = [
             {
                 path: 'dashboard',
                 component: DashboardComponent
+            },
+            {
+                path: 'settings',
+                component: SettingsComponent
             }
         ]
     },

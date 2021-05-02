@@ -23,29 +23,26 @@
                             <li> <a   href="#" style="color:#0071cc;">Contact Us</a></li>
                             <li> <a  href="#" style="color:#0071cc;">Support</a></li>
                             <li> <a  href="#" style="color:#0071cc;">Privacy Policy</a></li>
-                            <li class="dropdown login-signup ml-lg-2"><a class="dropdown-toggle pl-lg-4 pr-0"  [routerLink]="['/login']" title="Login/Register" style="color:#0071cc;">Login/Register <span class="d-none d-lg-inline-block"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" [routerLink]="['/login']" style="color:#0071cc;">Login</a></li>
-                                    <li><a class="dropdown-item" [routerLink]="['/register']" style="color:#0071cc;">Sign Up</a></li>
-
-                                </ul>
-                            </li>
-                            <!---
-                            @auth
-                            <li class="dropdown login-signup ml-lg-2"><a class="dropdown-toggle pl-lg-4 pr-0"  href="{{ route('dashboard') }}" title="{{ auth()->user()->name }}" style="color:#0071cc;">{{ auth()->user()->name }} <span class="d-none d-lg-inline-block"><i class="fas fa-user"></i></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{{ route('settings') }}" style="color:#0071cc;">{{ __('Settings') }}</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('logout') }}" style="color:#0071cc;" onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}</a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                            @endauth
-                            -->
+                            <li *ngIf="sessions;then content else other_content"></li>
+                            <ng-template #other_content>
+                                <li class="dropdown login-signup ml-lg-2"><a class="dropdown-toggle pl-lg-4 pr-0"  [routerLink]="['/login']" title="Login/Register" style="color:#0071cc;">Login/Register <span class="d-none d-lg-inline-block"></span></a>
+                                </li>
+                                <li><a [routerLink]="['/login']" style="color:#0071cc;">Login</a></li>
+                                <li><a  [routerLink]="['/register']" style="color:#0071cc;">Sign Up</a></li>
+                            </ng-template>
+                            <ng-template #content>
+                                <li class="dropdown login-signup ml-lg-2">
+                                    <ng-container *ngIf="user">
+                                        <a class="dropdown-toggle pl-lg-4 pr-0" routerLink="/dashboard" title="{{ user['name'] }}" style="color:#0071cc;">{{ user['name'] }}
+                                            <span class="d-lg-inline-block">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                        </a>
+                                    </ng-container>
+                                </li>
+                                <li><a routerLink="/settings" style="color:#0071cc;">Settings</a></li>
+                                <li><a href="JavaScript:void(0)" style="color:#0071cc;" (click)="logout()">Logout</a></li>
+                            </ng-template>
                         </ul>
                     </div>
                 </nav>          <!-- Primary Navigation end -->

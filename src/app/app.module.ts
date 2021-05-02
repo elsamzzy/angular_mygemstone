@@ -26,6 +26,7 @@ import { RegChilPathComponent } from './component/reg-chil-path/reg-chil-path.co
 import { SuccessComponent } from './component/success/success.component';
 import { PasswordComponent } from './component/password/password.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { SettingsComponent } from './component/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
     SuccessComponent,
     PasswordComponent,
     DashboardComponent,
+    SettingsComponent,
   ],
     imports: [
         BrowserModule,

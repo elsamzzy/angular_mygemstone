@@ -40,6 +40,34 @@ export class DashboardService {
     );
   }
 
+  getReferralDetails(user: any): Observable<any>{
+    const url = `${this.Url}/ref/${user}`;
+    return this.http.get<any>(url).pipe(
+      catchError(this.handleError('getReferralDetails'))
+    );
+  }
+
+  getCouponAmount(user: any): Observable<any>{
+    const url = `${this.Url}/coupon/${user}`;
+    return this.http.get<any>(url).pipe(
+        catchError(this.handleError('getCouponAmount'))
+    );
+  }
+
+  changePassword(user: any): Observable<any> {
+    const url = `${this.Url}/password/${user}`;
+    return this.http.get<any>(url).pipe(
+      catchError(this.handleError<any>('changePassword'))
+    );
+  }
+
+  changeBank(user: any): Observable<boolean> {
+    const url = `${this.Url}/bank/${user}`;
+    return this.http.get<boolean>(url).pipe(
+        catchError(this.handleError<boolean>('changePassword'))
+    );
+  }
+
 
   /**
    * Handle Http operation that failed.

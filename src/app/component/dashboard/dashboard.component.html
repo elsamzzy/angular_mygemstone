@@ -8,35 +8,38 @@
             <div class="container-fluid dashboard-content" >
                 <div class="ecommerce-widget">
                     <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="col-md-6">
                             <div class="card border-3 border-top border-top-primary">
                                 <div class="card-body">
                                     <h5 class="text-muted">Your Current Balance:</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">#auth->user->balance</h1>
+                                        <ng-container *ngIf="user">
+                                            <h1 class="mb-1">{{ user['balance'] }}</h1>
+                                        </ng-container>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="col-md-6">
                             <div class="card border-3 border-top border-top-primary">
                                 <div class="card-body">
                                     <h5 class="text-muted">Your direct downliners:</h5>
                                     <div class="metric-value d-inline-block">
-                                        <h1 class="mb-1">user->referal/2</h1>
+                                        <h1 class="mb-1">{{ numUser }}/2</h1>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        @if($user->referal(auth()->user()) === 0)
-                        <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>
-                            <div class='alert alert-warning' role='alert'>You have no downliners. Withdrawal link will be available when you have a total of 4 downliners</div>
-                        </div>
-                        @else
-                        <section id='price' class='section-padding'>
+                        <div *ngIf="numUser === 0;then content else other_content"></div>
+                        <ng-template #content>
+                            <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>
+                                <div class='alert alert-warning' role='alert'>You have no downliners. Withdrawal link will be available when you have a total of 4 downliners</div>
+                            </div>
+                        </ng-template>
+                        <ng-template #other_content>
                             <div class='container'>
                                 <div class='row'>
                                     <div class='col-12 text-center'>
@@ -48,59 +51,61 @@
 
                                 <!-- ====end section title===================== -->
                                 <div class='row mb-10'>
-                                    @foreach($downliner as $downliners)
-                                    <div class='col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12'>
-                                        <div class='card campaign-card text-center'>
-                                            <div class='card-body'>
-                                                <div class='campaign-info'>
-                                                    <h3 class='mb-1'>downliners->username</h3>
-                                                    <p class='mb-1'>Referrals:<span class='text-dark font-medium ml-2'>$user->indownliner($downliners->id)</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    @foreach($indownliner as $indownliners)
-                                    <div class='row'>
-                                        <div class='col-xl-12 col-lg-6 col-md-6 col-sm-12 col-12'>
+                                    <div *ngFor="let downliners of ref | keyvalue">
+                                        <div class='col-md-6'>
                                             <div class='card campaign-card text-center'>
                                                 <div class='card-body'>
                                                     <div class='campaign-info'>
-                                                        <h3 class='mb-1'>$indownliners->username</h3>
-                                                        <p class='mb-1'>Referrals:<span class='text-dark font-medium ml-2'>$user->indownliner($indownliners->id)</span></p>
+                                                        <h3 class='mb-1'>{{ downliners.key }}</h3>
+                                                        <p class='mb-1'>Referrals:<span class='text-dark font-medium ml-2'>{{ countObject(downliners.value) }}</span></p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div *ngIf="countObject(downliners.value) > 0">
+                                            <div *ngFor="let indownliners of downliners | keyvalue">
+                                                <div class='row'>
+                                                    <div class='col-md-6'>
+                                                        <div class='card campaign-card text-center'>
+                                                            <div class='card-body'>
+                                                                <div class='campaign-info'>
+                                                                    <h3 class='mb-1'>{{ indownliners.key }}</h3>
+                                                                    <p class='mb-1'>Referrals:<span class='text-dark font-medium ml-2'>{{ indownliners.value }}</span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p> &nbsp; </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p> &nbsp; </p>
-                                    @endforeach
-                                    @endforeach
                                 </div>
                                 <div class="justify-content-center align-items-center text-center">
-                                    @if( $user->referal(auth()->user()) < 2)
-                                    <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center'>
-                                        <div class='alert alert-danger' role='alert'>
-                                            <h5>You have not reached the minimum requirements of total referrals needed for withdrawal.<br>Withdrawal link will be available when each of your downliner has at least 1 referral.</h5>
-                                            <p>Downliner referrals: $user->referal(auth()->user())</p>
-                                            <p>Total Indirect Downliner referrals:  $user->indirectref(auth()->user())</p>
-                                            <p>Eligible Indirect Downliner referrals:  $user->indirectref(auth()->user())</p>
-                                            <p>Total Downliner referrals: $user->referal(auth()->user())</p>
-                                            <h5>A total of 2 indirect downliner is required.</h5>
-                                            <p> &nbsp; </p>
+                                    <div *ngIf="numUser < 2;then contents; else more_contents"></div>
+                                    <ng-template #contents>
+                                        <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center'>
+                                            <div class='alert alert-danger' role='alert'>
+                                                <h5>You have not reached the minimum requirements of total referrals needed for withdrawal.<br>Withdrawal link will be available when each of your downliner has at least 1 referral.</h5>
+                                                <p>Downliner referrals: {{ numUser }}</p>
+                                                <p>Total Indirect Downliner referrals:  {{ countInsideRef(ref) }}</p>
+                                                <p>Eligible Indirect Downliner referrals:  {{ countInsideRef(ref) }}</p>
+                                                <p>Total Downliner referrals: {{ numUser + countInsideRef(ref) }}</p>
+                                                <h5>A total of 2 indirect downliner is required.</h5>
+                                                <p> &nbsp; </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @else
-                                    <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>
-                                        <div class='alert alert-success' role='alert'>
-                                            <a href='#'>Click here</a>to request withdrawal
+                                    </ng-template>
+                                    <ng-template #more_contents>
+                                        <div class='col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12'>
+                                            <div class='alert alert-success' role='alert'>
+                                                <a href='#'>Click here</a>to request withdrawal
+                                            </div>
                                         </div>
-                                    </div>
-                                    @endif
+                                    </ng-template>
                                 </div>
                             </div>
-                        </section>
-                        @endif
+                        </ng-template>
                         <!-- ============================================================== -->
                         <div class="row">
                             <div class="col-12 text-center">
