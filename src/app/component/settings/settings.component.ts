@@ -12,6 +12,7 @@ export class SettingsComponent implements OnInit {
   session: any;
   user: any;
   plan: any;
+  refDetails: any;
 
   bankSuccess = '';
   passwordSuccess = '';
@@ -49,6 +50,7 @@ export class SettingsComponent implements OnInit {
     this.session = sessionStorage.getItem('logged') || localStorage.getItem('logged');
     this.getUserInfo();
     this.getPlan();
+    this.getReferralDetails();
     this.BankForm = new FormGroup({
       bank_name: new FormControl (this.BankForm.value.bank_name, [
           Validators.required
@@ -97,14 +99,14 @@ export class SettingsComponent implements OnInit {
   getReferralDetails() {
     this.dashboardService.getReferralDetails(this.session)
         .subscribe(details => {
-          return Object.keys(details).length;
+          return this.refDetails = Object.keys(details).length;
         });
   }
 
   getPlan(): any{
     this.dashboardService.getCouponAmount(this.session)
         .subscribe(response => {
-            return response;
+            return this.plan = response;
         });
   }
 
@@ -124,7 +126,7 @@ export class SettingsComponent implements OnInit {
           return this.bankError = 'Please fill all the forms';
       }
 
-      return this.dashboardService.changeBank(this.session)
+      return this.dashboardService.changeBank(this.session, this.BankForm.value)
           .subscribe(response => {
               if (response) {
                   return this.bankSuccess = 'Successfully changed your bank details';
@@ -146,7 +148,7 @@ export class SettingsComponent implements OnInit {
           return this.passwordError = 'Please fill all the forms';
       }
 
-      return this.dashboardService.changePassword(this.session)
+      return this.dashboardService.changePassword(this.session, this.PasswordForm.value)
           .subscribe(response => {
               if (response) {
                   return this.passwordSuccess = 'Successfully changed your password';

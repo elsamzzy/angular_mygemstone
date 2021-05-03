@@ -54,17 +54,17 @@ export class DashboardService {
     );
   }
 
-  changePassword(user: any): Observable<any> {
+  changePassword(user: any, details: any) {
     const url = `${this.Url}/password/${user}`;
-    return this.http.get<any>(url).pipe(
+    return this.http.post(url, details, this.httpOptions).pipe(
       catchError(this.handleError<any>('changePassword'))
     );
   }
 
-  changeBank(user: any): Observable<boolean> {
+  changeBank(user: any, details: any) {
     const url = `${this.Url}/bank/${user}`;
-    return this.http.get<boolean>(url).pipe(
-        catchError(this.handleError<boolean>('changePassword'))
+    return this.http.post(url, details, this.httpOptions).pipe(
+        catchError(this.handleError('changePassword'))
     );
   }
 

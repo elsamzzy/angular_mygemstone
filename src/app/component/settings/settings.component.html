@@ -62,16 +62,17 @@
                                         {{ user['email'] }}
                                     </div>
                                     &nbsp;&nbsp;
-                                    <ng-template *ngIf="plan">
+                                    <ng-container *ngIf="plan">
                                         <div class="lead">Your Plan: &nbsp;&nbsp;
                                             {{ plan }} Plan
                                         </div>
-                                    </ng-template>
+                                    </ng-container>
                                     &nbsp;&nbsp;
-                                    <div class="lead">Referrals:   &nbsp;&nbsp;
-                                        {{ getReferralDetails() }}/2
-                                    </div>
-
+                                    <ng-container *ngIf="refDetails">
+                                        <div class="lead">Referrals:   &nbsp;&nbsp;
+                                            {{ refDetails }}/2
+                                        </div>
+                                    </ng-container>
                                 </div>
                                 <div class="tab-pane fade" id="profile-simple" role="tabpanel" aria-labelledby="profile-tab-simple">
                                     <div class="lead">Bank Name:  &nbsp;&nbsp;
