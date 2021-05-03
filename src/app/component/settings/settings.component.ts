@@ -116,6 +116,7 @@ export class SettingsComponent implements OnInit {
       this.bankNameError = '';
       this.bankAccountNumberError = '';
       this.bankAccountNameError = '';
+      this.bankSuccess = '';
 
       if (
           this.bank.bank_name.value === '' ||
@@ -139,6 +140,7 @@ export class SettingsComponent implements OnInit {
       this.passwordError = '';
       this.oldPasswordError = '';
       this.newPasswordError = '';
+      this.passwordSuccess = '';
 
       if (
           this.password.old_password.value === '' ||
@@ -156,7 +158,7 @@ export class SettingsComponent implements OnInit {
                   return this.oldPasswordError = 'Incorrect Password';
               } else if (response === 2) {
                   return this.newPasswordError = 'Passwords does not match';
-              } else if (response ===3) {
+              } else if (response === 3) {
                   return this.newPasswordError = 'Passwords must be at least 6 characters long';
               }
               return this.passwordError = 'Could not change your password at this time';

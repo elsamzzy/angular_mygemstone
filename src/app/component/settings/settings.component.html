@@ -146,7 +146,7 @@
                                             &nbsp;&nbsp;
                                             <div class="text-center">
                                                 <div class="lead col-md-8">Enter Password:
-                                                    <input type="password" class="form-control" formControlName="bank_password" name="bank_password" placeholder="Your Password" required autofocus>
+                                                    <input type="password" class="form-control" formControlName="bank_password" autocomplete="off" name="bank_password" placeholder="Your Password" required autofocus>
                                                     <div *ngIf="bank.bank_password.touched && bank.bank_password.invalid">
                                                         <div *ngIf="bank.bank_password.hasError('required')">
                                                             <span class="text-danger" role="alert">
@@ -186,11 +186,9 @@
 
                             <div class="tab-pane fade" id="contact-simple" role="tabpanel" aria-labelledby="contact-tab-simple">
                                 <form method="POST" [formGroup]="PasswordForm" (ngSubmit)="changePassword()">
-                                    @method('put')
-                                    @csrf
                                     <div class="text-center">
                                         <div class="lead col-md-8">Your Current Password:
-                                            <input type="password" class="form-control" formControlName="old_password" name="old_password" placeholder="Your Current Password" required autofocus>
+                                            <input type="password" class="form-control" formControlName="old_password" autocomplete="off" name="old_password" placeholder="Your Current Password" required autofocus>
                                         </div>
                                         <div *ngIf="password.old_password.touched && password.old_password.invalid">
                                             <div *ngIf="password.old_password.hasError('required')">
@@ -231,7 +229,7 @@
                                     &nbsp;&nbsp;
                                     <div class="text-center">
                                         <div class="lead col-md-8">Confirm Password:
-                                            <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required autofocus>
+                                            <input type="password" class="form-control" formControlName="password_confirmation" name="password_confirmation" placeholder="Confirm Password" required autofocus>
                                         </div>
                                     </div>
                                     &nbsp;&nbsp;
