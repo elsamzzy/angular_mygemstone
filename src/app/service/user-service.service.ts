@@ -9,7 +9,7 @@ import { User, Bank } from '../modules/user';
 })
 export class UserServiceService {
 
-  private Url = 'http://localhost:8000/api/users';
+  private Url = 'http://api.mygemstone.online/api/users';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

@@ -8,7 +8,7 @@ import {catchError} from 'rxjs/operators';
 })
 export class DashboardService {
 
-  private Url = 'http://localhost:8000/api/login';
+  private Url = 'http://api.mygemstone.online/api/login';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
