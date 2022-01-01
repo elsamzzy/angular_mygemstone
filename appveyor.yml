@@ -1,5 +1,5 @@
 # Test against the latest version of this Node.js version
-environment:
+#environment:
 #  nodejs_version: "12"
 
 # Install scripts. (runs after repo cloning)
