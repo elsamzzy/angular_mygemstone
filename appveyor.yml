@@ -1,0 +1,51 @@
+# Test against the latest version of this Node.js version
+environment:
+  nodejs_version: "8"
+
+# Install scripts. (runs after repo cloning)
+install:
+  # Get the latest stable version of Node.js or io.js
+  - ps: Install-Product node $env:nodejs_version
+  - ps: npm --no-git-tag-version version $env:APPVEYOR_BUILD_VERSION
+  # install modules
+  - npm install -g @angular/cli
+  - npm install
+
+# Post-install test scripts.
+test_script:
+  # If need to do any of the below test script actions in appveyor:
+  # 1. Uncomment the script line
+  # 2. Push the commmit to trigger the build
+  # 3. When build is successful, comment out the line again
+
+  # If need to clear test cache:
+  # - npm run test -- -no-cache
+
+  # If need to update test snapshot(s):
+  # - npm run test -- -u
+
+  # If need to update test snapshots and test cache:
+  # - npm run test:cache -- -u
+
+  # Output useful info for debugging.
+  #- node --version
+  #- npm --version
+  #- npm test
+
+cache:
+  - node_modules -> package.json
+
+build_script: npm run build-prod
+  
+artifacts:
+- path: dist
+  name: MyGemStone
+#deploy:
+#- provider: Environment
+#  name: MyGemStone Dev
+#  on:
+#    branch: dev
+#- provider: Environment
+#  name: MyGemStone Test
+#  on:
+#    branch: dev    
